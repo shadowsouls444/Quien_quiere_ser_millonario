@@ -32,8 +32,8 @@ body {
 }
 
 .ayuda-circulo {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border: 2px solid #4dcaff;
     border-radius: 50%;
     display: flex;
@@ -42,11 +42,13 @@ body {
     background: rgba(0, 0, 90, 0.5);
 }
 
-.ayuda-circulo img {
-    width: 60%;
-    height: 60%;
+.ayuda-circulo img,
+.ayuda-circulo i {
+    width: 45%;
+    height: 45%;
     object-fit: contain;
 }
+
 
 /* logo central */
 .logo-central {
@@ -57,7 +59,7 @@ body {
 }
 
 .logo {
-    width: 280px;
+    width: 400px;
     height: auto;
 }
 
