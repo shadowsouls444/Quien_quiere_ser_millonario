@@ -1,0 +1,146 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #210050, #000428);
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+.contenedor {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* barra superior */
+.barra-superior {
+    background: rgba(0, 0, 80, 0.6);
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* ayudas lado izquierdo */
+.ayudas {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ayuda-circulo {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #4dcaff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 90, 0.5);
+}
+
+.ayuda-circulo img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+/* logo central */
+.logo-central {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo {
+    width: 280px;
+    height: auto;
+}
+
+/* escalera derecha dentro de contenedor */
+.escalera {
+    position: absolute;
+    right: 20px;
+    top: 80px;
+    width: 150px;
+    padding: 15px;
+    border: 2px solid #4dcaff;
+    background: rgba(0, 0, 100, 0.45);
+    border-radius: 10px;
+}
+
+.escalera ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.escalera li {
+    margin: 7px 0;
+    font-size: 18px;
+    color: #ffbb00;
+}
+
+.escalera .activo {
+    color: white;
+    font-weight: 600;
+}
+
+/* pregunta */
+.pregunta {
+    position: absolute;
+    bottom: 230px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    background: rgba(0, 0, 100, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 22px;
+    border: 2px solid #4dcaff;
+}
+
+/* opciones estilo hexagonal */
+.opciones {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.opciones button {
+    position: relative;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #003077, #009dff);
+    color: white;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+
+    /* forma hexagonal horizontal */
+    clip-path: polygon(
+        10% 0%,
+        90% 0%,
+        100% 50%,
+        90% 100%,
+        10% 100%,
+        0% 50%
+    );
+
+    border: 2px solid #4dcaff;
+    transition: 0.2s;
+}
+
+.opciones button:hover {
+    transform: scale(1.05);
+}

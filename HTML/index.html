@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juego Millonario 💰</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quien Quiere Ser Millonario</title>
+    <link rel="stylesheet" href="../CSS/estilos.css">
 
-  <!-- Enlazar el CSS -->
-  <!-- <link rel="stylesheet" href="../CSS/estilos.css" /> -->
-
+    <!-- Tipografía similar -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>💰 ¿Quién quiere ser millonario? 💰</h1>
 
-  <div id="pregunta">Aquí aparecerá la pregunta</div>
+    <div class="contenedor">
 
-  <div id="opciones">
-    <!-- Las opciones se generarán dinámicamente desde JS -->
-  </div>
+        <!-- BARRA SUPERIOR -->
+        <header class="barra-superior">
+            <div id="premio" class="premio-texto">Premio de la pregunta:</div>
+        </header>
 
-  <div id="premio"></div>
+        <!-- AYUDAS IZQUIERDA -->
+        <div class="ayudas">
+            <img src="LINK_50_50" alt="50 50" class="icono-ayuda">
+            <img src="LINK_PUBLICO" alt="Publico" class="icono-ayuda">
+            <img src="LINK_SALIR" alt="Salir" class="icono-ayuda">
+        </div>
 
-  <!-- Enlazar el JS -->
-  <script src="../JS/archivoJS.js"></script>
+        <!-- LOGO CENTRAL -->
+        <div class="logo-central">
+            <img src="LINK_LOGO" alt="logo" class="logo">
+        </div>
+
+        <!-- ESCALERA DE PREMIOS -->
+        <aside class="escalera">
+            <ul>
+                <li>10 Premio</li>
+                <li>9</li>
+                <li>8 Seguro 2</li>
+                <li>7</li>
+                <li>6</li>
+                <li>5 Seguro 1</li>
+                <li>4</li>
+                <li>3</li>
+                <li>2</li>
+                <li class="activo">1</li>
+            </ul>
+        </aside>
+
+        <!-- PREGUNTA -->
+        <div id="pregunta" class="pregunta">
+            Aquí va la pregunta
+        </div>
+
+        <!-- OPCIONES -->
+        <div id="opciones" class="opciones">
+            <!-- Los botones se agregan desde JS -->
+        </div>
+
+    </div>
+
+    <script src="../JS/archivoJS.js"></script>
 </body>
 </html>
