@@ -1,112 +1,138 @@
-// EJEMPLO DE UNA LISTA DE PREGUNTAS
 const preguntas = [
-
-    // NOTA: El atributo 'correcta' debe contener el índice de la opción correcta en el array 'opciones'.
-
-    {
-        pregunta: "¿Cual de este animal es canina?",
-        opciones: ["Conejo", "Gato", "Perro", "Ganso"],
-
-        // Índice de la opción por ejemplo 2 corresponde a "Perro"
-        correcta: 2,
-        premio: 100
-    },
-    {
-        pregunta: "¿Cuál es el planeta más grande del sistema solar?",
-        opciones: ["Marte", "Júpiter", "Saturno", "Tierra"],
-
-        // Índice de la opción por ejemplo 1 corresponde a "Júpiter"
-        correcta: 1,
-        premio: 500
-    },
-    {
-        pregunta: "¿Quién pintó la Mona Lisa?",
-        opciones: ["Picasso", "Da Vinci", "Van Gogh", "Miguel Ángel"],
-
-        // Índice de la opción por ejemplo 1 corresponde a "Da Vinci"
-        correcta: 1,
-        premio: 1000
-    }
+    { orden: 1, pregunta: "¿Cual de este animal es canina?", opciones: ["Conejo", "Gato", "Perro", "Ganso"], correcta: 2, premio: 100 },
+    { orden: 2, pregunta: "¿Cuál es el planeta más grande del sistema solar?", opciones: ["Marte", "Júpiter", "Saturno", "Tierra"], correcta: 1, premio: 500 },
+    { orden: 3, pregunta: "¿Quién pintó la Mona Lisa?", opciones: ["Picasso", "Da Vinci", "Van Gogh", "Miguel Ángel"], correcta: 1, premio: 1000 }
 ];
 
-// Variables del juego
+//orden
+const preguntasOrdenadas = preguntas.slice().sort((a, b) => a.orden - b.orden);
+
+// Estado del juego
 let nivel = 0;
-let dinero = 0;
 let premio_acumulado = 0;
+let correctas = 0;
+let incorrectas = 0;
 
-// Función para obtener la pregunta actual por indice 
+// Elementos
+const btnStart = document.getElementById("startGame");
+const btnFinalizar = document.getElementById("finalizar");
+const contPregunta = document.getElementById("pregunta");
+const contOpciones = document.getElementById("opciones");
+const contPremio = document.getElementById("premio");
+const contAcumulado = document.getElementById("acumulado");
+
+btnStart.addEventListener("click", iniciarJuego);
+btnFinalizar.addEventListener("click", reiniciarJuego);
+
+function iniciarJuego() {
+    nivel = 0;
+    premio_acumulado = 0;
+    correctas = 0;
+    incorrectas = 0;
+
+    btnStart.style.display = "none";
+    btnFinalizar.style.display = "inline-block";
+
+    actualizarAcumulado();
+    obtenerPreguntaActual(nivel);
+}
+
+//formato de la money
+function formatearDinero(valor) {
+    return "$ " + valor.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
+
 function obtenerPreguntaActual(nivel_actual) {
+    const preguntaActual = preguntasOrdenadas[nivel_actual];
 
-    const titulo_pregunta = preguntas[nivel_actual].pregunta;
-    const preguntas_opciones = preguntas[nivel_actual].opciones;
-    const premio_pregunta = preguntas[nivel_actual].premio;
+    if (!preguntaActual) {
+        mostrarResultadosFinales();
+        return;
+    }
 
-    //Mostrar la pregunta en el HTML por el ID
-    document.getElementById("pregunta").textContent = titulo_pregunta;
+    contPregunta.textContent = preguntaActual.pregunta;
+    contPremio.textContent = `Premio de la pregunta: ${formatearDinero(preguntaActual.premio)} dólares`;
 
-    //Mostrar premio en el HTML por el ID
-    document.getElementById("premio").textContent = `Premio de la pregunta: ${premio_pregunta} dólares`;
+    // Limpiar opciones y crear botones
+    contOpciones.innerHTML = "";
+    preguntaActual.opciones.forEach((opcion, indice) => {
+        const boton = document.createElement("button");
+        boton.textContent = opcion;
+        boton.disabled = false;
 
-    // Obtener el elemento HTML por el ID
-    const listaHTML = document.getElementById("opciones");
-
-    // Limpiar opciones anteriores
-    listaHTML.innerHTML = "";
-
-    // Recorrer las opciones de la pregunta actual y le pasamos el indice
-    preguntas_opciones.forEach(function (opciones, indice) {
-
-        //Crear un elemento HTML de tipo botón
-        const botones = document.createElement("button");
-
-        //Añadir texto al elemento HTML (boton)
-        botones.textContent = opciones;
-
-        // Añadir un evento de clic al botón
-        botones.onclick = function () {
+        boton.onclick = () => {
+            disableOpciones();
             verificarRespuesta(nivel_actual, indice);
         };
 
-        // Añadir el elemento HTML creado (boton)
-        listaHTML.appendChild(botones)
-
-    })
-
+        contOpciones.appendChild(boton);
+    });
 }
 
-// Función para verificar la respuesta del usuario
+function disableOpciones() {
+    const botones = contOpciones.querySelectorAll("button");
+    botones.forEach(b => b.disabled = true);
+}
+
 function verificarRespuesta(nivel_actual, respuesta_usuario) {
+    const pregunta = preguntasOrdenadas[nivel_actual];
 
-    const opcionCorrecta = preguntas[nivel_actual].correcta;
-    const premioNivel = preguntas[nivel_actual].premio;
-
-    if (respuesta_usuario == opcionCorrecta) {
-
-        premio_acumulado += premioNivel;
-        return alert("¡Respuesta correcta! Has ganado " + premioNivel + " dólares. Premio acumulado: " + premio_acumulado + " dólares.");
-
+    if (respuesta_usuario === pregunta.correcta) {
+        premio_acumulado += pregunta.premio;
+        correctas++;
+        //para el modal
+        alert(`✔ Respuesta correcta. ¡Ganaste ${formatearDinero(pregunta.premio)} dólares 🤩!`);
     } else {
-
-        premio_acumulado = 0;
-        return alert("Respuesta incorrecta. Has perdido todo tu premio acumulado.");
-
+        incorrectas++;
+        //para el modal
+        alert(`✘ Respuesta incorrecta 😔.`);
     }
 
+    actualizarAcumulado();
+
+    // Pasa a la siguiente pregunta
+    nivel++;
+    
+    obtenerPreguntaActual(nivel);
 }
 
-//Para probar la función obtenerPreguntaActual
-const pregunta = obtenerPreguntaActual(0);
+function actualizarAcumulado() {
+    contAcumulado.textContent = `Premio acumulado: ${formatearDinero(premio_acumulado)} dólares`;
+}
 
-/*
-const pregunta = obtenerPreguntaActual(0);
-console.log(pregunta.pregunta);
-console.log(pregunta.opciones);
-console.log(pregunta.correcta);
-console.log(pregunta.premio);
+function mostrarResultadosFinales() {
+    alert(
+`🏁 FIN DEL JUEGO
+Total ganado: ${formatearDinero(premio_acumulado)} dólares
+Respuestas correctas: ${correctas}
+Respuestas incorrectas: ${incorrectas}`
+    );
 
-verificarRespuesta(0, 2); // Prueba con la respuesta correcta
-verificarRespuesta(1, 0); // Prueba con una respuesta incorrecta
-*/
+    // Limpieza de la UI
+    contPregunta.textContent = "";
+    contOpciones.innerHTML = "";
+    contPremio.textContent = "";
+   
+    btnStart.style.display = "inline-block";
+    btnFinalizar.style.display = "none";
+}
 
+function reiniciarJuego() {
+    nivel = 0;
+    premio_acumulado = 0;
+    correctas = 0;
+    incorrectas = 0;
 
+    contPregunta.textContent = "";
+    contOpciones.innerHTML = "";
+    contPremio.textContent = "";
+    actualizarAcumulado();
 
+    btnStart.style.display = "inline-block";
+    btnFinalizar.style.display = "none";
+
+    alert("El juego ha sido reiniciado.");
+}
