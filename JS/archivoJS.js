@@ -83,16 +83,31 @@ function verificarRespuesta(nivel_actual, respuesta_usuario) {
     if (respuesta_usuario == opcionCorrecta) {
 
         premio_acumulado += premioNivel;
-        return alert("¡Respuesta correcta! Has ganado " + premioNivel + " dólares. Premio acumulado: " + premio_acumulado + " dólares.");
+        mostrarModal(
+            "¡Respuesta Correcta! 🏆",
+            "Has ganado <strong>" + premioNivel + "</strong> dólares.<br>💰 <strong>Premio acumulado:</strong> " + premio_acumulado + " dólares."
+        );
 
     } else {
 
         premio_acumulado = 0;
-        return alert("Respuesta incorrecta. Has perdido todo tu premio acumulado.");
-
+        mostrarModal(
+            "Respuesta Incorrecta ❌",
+            "Has perdido todo tu premio acumulado."
+        );
     }
-
 }
+
+function mostrarModal(titulo, mensaje) {
+    document.getElementById("modal-titulo").innerHTML = titulo;
+    document.getElementById("modal-mensaje").innerHTML = mensaje;
+    document.getElementById("miModal").style.display = "flex";
+}
+
+function cerrarModal() {
+    document.getElementById("miModal").style.display = "none";
+}
+
 
 //Para probar la función obtenerPreguntaActual
 const pregunta = obtenerPreguntaActual(0);
