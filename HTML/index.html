@@ -10,73 +10,56 @@
     <!-- Tipografía similar -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
-    
+
 <div id="miModal" class="modal">
-  <div class="modal-contenido">
-    <h2 id="modal-titulo"></h2>
-    <p id="modal-mensaje"></p>
-    <button onclick="cerrarModal()">Aceptar</button>
-  </div>
+    <div class="modal-contenido">
+        <h2 id="modal-titulo"></h2>
+        <p id="modal-mensaje"></p>
+        <button onclick="cerrarModal()">Aceptar</button>
+    </div>
 </div>
 
 <body>
 
     <div class="contenedor">
 
+        <button id="startGame">EMPEZAR JUEGO</button>
+        <button id="finalizar" style="display:none;">FINALIZAR</button>
+
         <!-- BARRA SUPERIOR -->
         <header class="barra-superior">
-            <div id="premio" class="premio-texto">Premio de la pregunta:</div>
+            <div id="premio" class="premio-texto"></div>
+            <div id="acumulado" class="premio-texto">Premio acumulado: 0 dólares</div>
         </header>
 
         <!-- AYUDAS IZQUIERDA -->
         <div class="ayudas">
             <div class="ayuda-circulo">
-                <img src="/CSS/img/5050.png" alt="50 50" class="icono-ayuda">
+                <img src="../CSS/img/5050.png" alt="50 50" class="icono-ayuda">
             </div>
 
             <div class="ayuda-circulo">
-                <img src="/CSS/img/publico.png" alt="Publico" class="icono-ayuda">
+                <img src="../CSS/img/publico.png" alt="Publico" class="icono-ayuda">
             </div>
 
             <div class="ayuda-circulo">
-                <img src="/CSS/img/cerrar-sesion.png" alt="Salir" class="icono-ayuda">
+                <img src="../CSS/img/cerrar-sesion.png" alt="Salir" class="icono-ayuda">
             </div>
         </div>
 
 
         <!-- LOGO CENTRAL -->
         <div class="logo-central">
-            <img src="/CSS/img/quienquieresermillonatio.png" alt="logo" class="logo">
+            <img src="../CSS/img/quienquieresermillonatio.png" alt="logo" class="logo">
         </div>
-
-        <!-- ESCALERA DE PREMIOS -->
-        <aside class="escalera">
-            <ul>
-                <li>10 Premio</li>
-                <li>9</li>
-                <li>8 Seguro 2</li>
-                <li>7</li>
-                <li>6</li>
-                <li>5 Seguro 1</li>
-                <li>4</li>
-                <li>3</li>
-                <li>2</li>
-                <li class="activo">1</li>
-            </ul>
-        </aside>
 
         <!-- PREGUNTA -->
-        <div id="pregunta" class="pregunta">
-            Aquí va la pregunta
-        </div>
+        <div id="pregunta" class="pregunta"></div>
 
         <!-- OPCIONES -->
-        <div id="opciones" class="opciones">
-            <!-- Los botones se agregan desde JS -->
-        </div>
+        <div id="opciones" class="opciones"></div>
 
     </div>
-    
 
     <script src="../JS/archivoJS.js"></script>
 </body>
